@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Customers</title>
+<link th:rel="stylesheet" th:href="@{/mystyle.css}" />
+</head>
+<header th:replace="fragments/header"></header>
+<body>
+	<div class="container my-2">
+
+		<h1>Customers List</h1>
+
+		<table border="1" class="center table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Customer id</th>
+					<th>CustomerName</th>
+					<th>UserName</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>PhoneNo</th>
+					
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="customerDetail : ${listOfCustomer}">
+					<td th:text="${customerDetail.id}"></td>
+					<td th:text="${customerDetail.customerName}"></td>
+					<td th:text="${customerDetail.userName}"></td>
+					<td th:text="${customerDetail.email}"></td>
+					<td th:text="${customerDetail.Address}"></td>
+					<td th:text="${customerDetail.phoneNo}"></td>
+					
+				</tr>
+
+			</tbody>
+		</table>
+
+		<div th:if="${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-1">
+					<span th:each="index : ${#numbers.sequence(1,totalPages)}">
+						<a th:if="${activePage != index}" th:href="@{'/user/'+${index}}">[[${index}]]</a>
+						<span th:unless="${activePage != index}">[[${index}]]</span>
+					</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

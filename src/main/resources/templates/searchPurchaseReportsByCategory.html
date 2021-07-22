@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+<meta charset="ISO-8859-1">
+<title>Search By User Name</title>
+<link
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}"
+	rel="stylesheet">
+</head>
+<body>
+	<header th:replace="fragments/header"></header>
+	
+
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand">Select the category name from the drop-down</a>
+			<form class="d-flex" th:action="@{/getByCategory}"
+				th:object="${productCategoryList}" method="GET">
+				<div class="dropdown md navbar-brand">
+					<select class="btn btn-info dropdown-toggle btn-lg navbar-brand" name="categoryId" id="categoryId" data-bs-toggle="dropdown">
+
+						<option class="dropdown-item" th:each="productCategory : ${productCategoryList}"
+							th:value="${productCategory.categoryId}"
+							th:selected="${productCategory.isSelected(lastselected)}"
+							th:text="${productCategory.categoryName}"></option>
+					</select>
+					<button class="btn btn-outline-success btn-lg" type="submit">Search</button>
+				</div>
+			</form>
+		</div>
+	</nav>
+
+</body>
+</html>

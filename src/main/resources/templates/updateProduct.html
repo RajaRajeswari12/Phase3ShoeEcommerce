@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Product Detail</title>
+
+<link th:rel="stylesheet"
+	th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " />
+<link th:rel="stylesheet" th:href="@{/mystyle.css}">
+
+
+</head>
+
+
+<body>
+
+<header th:insert="fragments/header" hidden=""></header>
+<header th:replace="fragments/header"></header>
+
+	<form  action="#"  th:action="@{'/saveOrUpdateProduct?pageNo='+${pageNo}}" th:object="${product}"
+		method="POST">
+
+		<h1>Update Product Detail</h1>
+		<br>
+		<Table class="center">
+			<thead>
+				<tr>
+					<th>Details To Be Entered</th>
+					<th>Modify Required Product Details</th>
+			</thead>
+			<tbody>
+				<!-- Product Details -->
+				<tr>
+					<td><label for="id">Product Id:</label></td>
+					<td><input type="number" class="form-control" th:field="*{id}" readonly="readonly">
+						</td>
+				</tr>
+
+				<tr>
+					<td><label for="productName">Product Name:</label></td>
+					<td>
+					<input type="text" class="form-control"
+						th:field="*{productName}" required></td>
+				</tr>
+				<tr>
+					<td><label for="productSize">Product Size:</label></td>
+					<td><input type="number" class="form-control"
+						th:field="*{productSize}" required></td>
+				</tr>
+				<tr>
+					<td><label for="productPrice">Product Price:</label></td>
+					<td><input type="number" class="form-control"
+						th:field="*{productPrice}" required>
+						
+						</td>
+				</tr>
+
+
+				<tr>
+					<td><label for="mfgDate">Product Manufactured Date:</label></td>
+					<td>
+						<div class="input-group date" id="datetimepicker1"
+							data-target-input="nearest">
+							<input type="text" class="form-control datetimepicker-input"
+								data-target="#datetimepicker1" th:field="*{mfgDate}"
+								id="mfgDate" placeholder="Date" />
+							<div class="input-group-append" data-target="#datetimepicker1"
+								data-toggle="datetimepicker">
+								<div class="input-group-text">
+									<i class="fa fa-calendar-alt"></i>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+					<!-- Category Details -->
+				<tr>
+					<td><label for="category">Category Name:</label></td>
+					<td>
+					<input type="hidden" class="form-control"
+						th:field="*{category.categoryId}" >
+					<input type="text" class="form-control"
+						th:field="*{category.categoryName}" required></td>
+				</tr>
+
+				<!-- Product Quantity Details -->
+				<tr>
+					<td><label for="quantity">Product Count:</label></td>
+					<td><input type="text" class="form-control"
+						th:field="*{quantity}" required></td>
+				</tr>
+
+
+
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Update Product" class="btn btn-secondary"></td>
+				</tr>
+			</tbody>
+		</Table>
+		<hr>
+
+		<a th:href="@{/home}"> Back to Home Page</a>
+	</form>
+
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/moment/moment.min.js}"></script>
+	<script
+		th:src="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js}"></script>
+
+	<script>
+   
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+</script>
+</body>
+</html>

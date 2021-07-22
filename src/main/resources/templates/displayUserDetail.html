@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Product Detail</title>
+
+<link th:rel="stylesheet"
+	th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " />
+<link th:rel="stylesheet" th:href="@{/mystyle.css}">
+
+
+</head>
+
+
+<body>
+
+<header th:insert="fragments/header" hidden=""></header>
+<header th:replace="searchByUser"></header>
+
+	<form  action="#"   th:object="${customer}" 	method="POST">
+
+		<h1>Customer Details</h1>
+		<br>
+		<Table class="center">
+			<thead>
+				<tr>
+					<th>Details To Be Entered</th>
+					<th>Modify Required Product Details</th>
+			</thead>
+			<tbody>
+				<!-- Product Details -->
+				<tr>
+					<td><label for="id">Customer id:</label></td>
+					<td><input type="number" class="form-control" th:field="*{id}" readonly="readonly">
+						</td>
+				</tr>
+
+				<tr>
+					<td><label for="customerName">Customer Name:</label></td>
+					<td>
+					<input type="text" class="form-control"
+						th:field="*{customerName}" required></td>
+				</tr>
+				<tr>
+					<td><label for="userName">UserName:</label></td>
+					<td><input type="text" class="form-control"
+						th:field="*{userName}" required></td>
+				</tr>
+				<tr>
+					<td><label for="email">Customer Email:</label></td>
+					<td><input type="text" class="form-control"
+						th:field="*{email}" required>
+						
+						</td>
+				</tr>
+
+
+				<tr>
+					<td><label for="Address">Customer Address:</label></td>
+					<td>
+				<!-- 	<input type="hidden" class="form-control"
+						th:field="*{Address}" > -->
+					<input type="text" class="form-control"
+						th:field="*{Address}" required></td>
+				</tr>
+
+				<!-- Product Quantity Details -->
+				<tr>
+					<td><label for="phoneNo">Customer PhoneNo:</label></td>
+					<td><input type="text" class="form-control"
+						th:field="*{PhoneNo}" required>
+						 </td>
+				</tr>
+
+
+
+				
+			</tbody>
+		</Table>
+		<hr>
+
+	</form>
+<input type="hidden" th:field="*{pageNo}">
+
+		<a th:href="@{'/user/'+${pageNo}}"> Back to Home Page</a>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/moment/moment.min.js}"></script>
+	<script
+		th:src="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js}"></script>
+
+	<script>
+   
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+</script>
+</body>
+</html>

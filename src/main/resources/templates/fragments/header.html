@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!--  <link th:rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}"> -->
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" th:rel="stylesheet" >
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="/adminLogin">Login</a>
+  <a class="navbar-brand" href="/registerAdmin">Register</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+  <!--   <li class="nav-item">
+      <a class="nav-link" href="/saveProduct">Add New Products</a>
+    </li> -->
+  
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Manage Product
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/saveProduct">Add New Products</a>
+         <a class="dropdown-item" href="/viewAllProducts">List All Product</a>
+      <a class="dropdown-item" href="/updateProduct">Update Product</a>
+      <a class="dropdown-item" href="/deleteProduct">Delete Product</a>
+      </div>
+    </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Manage User
+      </a>
+      <div class="dropdown-menu">
+       <a class="dropdown-item" href="/viewAllUser">List All Users</a>
+       <a class="dropdown-item" href="/viewUserByUserNm">Search By UserName</a>
+      </div>
+    </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Manage Purchased Reports
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/viewAllReport">List All Purchased Report</a>
+         <a class="dropdown-item" href="/viewReportByCategoryNm">View PurchaseReport By Category</a>
+          <a class="dropdown-item" href="/viewReportByDate">View PurchaseReport By Date</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
+  
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+  <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js}"></script>
+  <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

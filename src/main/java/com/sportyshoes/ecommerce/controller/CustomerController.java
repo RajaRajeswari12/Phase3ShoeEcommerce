@@ -22,6 +22,9 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	private CustomerNamePOJO customerNamePOJO;
+	
 	
 	@GetMapping("/viewAllUser")
 	public String viewAllUserListe(Model model) {
@@ -35,6 +38,7 @@ public class CustomerController {
 		Page<Customer> page = customerService.UserPagination(pageNo, userCount);
 		List<Customer> listOfCustomer = page.getContent();		
 		model.addAttribute("activePage",pageNo);
+		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("totalPages",page.getTotalPages());
 		model.addAttribute("listOfCustomer",listOfCustomer);
 		return "viewCustomer";
@@ -43,7 +47,7 @@ public class CustomerController {
 	@GetMapping("/viewUserByUserNm")
 	public String gotoSearchUserPage(Model model) 
 	{
-		model.addAttribute("customerNamePOJO",new CustomerNamePOJO());
+		model.addAttribute("customerNamePOJO",customerNamePOJO);
 		return "searchByUser";
 	}
 	
@@ -53,7 +57,7 @@ public class CustomerController {
 			Model model) 
 	{
 		Customer customer = customerService.getCustomerByUserName(userName);	
-		CustomerNamePOJO customerNamePOJO = new CustomerNamePOJO();
+	
 		customerNamePOJO.setUserName(userName);
 		customerNamePOJO.setPageNo(1);
 		model.addAttribute("customerNamePOJO",customerNamePOJO);

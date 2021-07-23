@@ -1,5 +1,8 @@
 package com.sportyshoes.ecommerce.POJO;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class GetProductIdPOJO {
 
 	private int id;

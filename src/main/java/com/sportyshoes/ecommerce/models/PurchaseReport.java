@@ -16,7 +16,8 @@ import javax.persistence.TemporalType;
 @NamedQueries(value = {
 		  @NamedQuery(name = "PurchaseReport.findByCategory", query = "select pr from PurchaseReport pr where pr.product.category.categoryId = ?1") ,
 
-		  @NamedQuery(name = "PurchaseReport.findByDate", query = "select pr from PurchaseReport pr where pr.purchasedDate = ?1") })
+		  @NamedQuery(name = "PurchaseReport.findByDate", query = "select pr from PurchaseReport pr where pr.purchasedDate = ?1") ,
+		  @NamedQuery(name = "PurchaseReport.deleteByProductId", query = "delete from PurchaseReport pr where pr.product.id = ?1")})
 public class PurchaseReport {
 
 	

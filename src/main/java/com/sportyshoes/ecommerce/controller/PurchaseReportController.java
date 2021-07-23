@@ -35,6 +35,12 @@ public class PurchaseReportController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 	
+	@Autowired
+	private PurchaseReportByDatePOJO purchaseReportByDatePOJO;
+	
+	
+	private List<ProductCategory> productCategoryList;
+	
 	@GetMapping("/viewAllReport")
 	public String viewAllUserListe(Model model) {
 		return paginateReport(1,model);
@@ -48,7 +54,9 @@ public class PurchaseReportController {
 		List<PurchaseReport> listOfPurchaseReport = page.getContent();		
 		model.addAttribute("activePage",pageNo);
 		model.addAttribute("totalPages",page.getTotalPages());
+		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("listOfPurchaseReport",listOfPurchaseReport);
+		model.addAttribute("paginate","ALL");
 		return "viewPurchaseReport";
 	}
 
@@ -56,9 +64,9 @@ public class PurchaseReportController {
 	public String gotoSearchPurchaseReportsByCategoryPage(Model model) 
 	{
 		
-		List<ProductCategory> productCategoryList = productCategoryService.getAllProductCategory(); 
+		productCategoryList = productCategoryService.getAllProductCategory(); 
 		model.addAttribute("productCategoryList",productCategoryList);
-		model.addAttribute("lastselected", 21);
+		model.addAttribute("lastselected", 1);
 		return "searchPurchaseReportsByCategory";
 	}
 	
@@ -73,14 +81,20 @@ public class PurchaseReportController {
 	}
 	
 	@GetMapping("/categoryReport/{pageNo}")
-	public String paginateReportByCategory(@PathVariable(value="pageNo") int pageNo,Model model,int categoryId ) 
+	public String paginateReportByCategory(@PathVariable(value="pageNo") int pageNo,Model model,
+			@RequestParam("categoryId") int categoryId ) 
 	{		
 		int reportCount = 5;
 		Page<PurchaseReport> page = purchaseReportService.purchasedReportByCategoryPagination(categoryId,pageNo, reportCount);
 		List<PurchaseReport> listOfPurchaseReport = page.getContent();		
 		model.addAttribute("activePage",pageNo);
 		model.addAttribute("totalPages",page.getTotalPages());
+		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("listOfPurchaseReport",listOfPurchaseReport);
+		model.addAttribute("paginate","Category");
+		productCategoryList = productCategoryService.getAllProductCategory(); 
+		model.addAttribute("productCategoryList",productCategoryList);
+		model.addAttribute("lastselected", categoryId);
 		return "viewPurchaseReport";
 	}
 	
@@ -88,29 +102,33 @@ public class PurchaseReportController {
 	@GetMapping("/viewReportByDate")
 	public String gotoSearchPurchaseReportsByDate(Model model) 
 	{		
-		model.addAttribute("purchaseReportByDatePOJO",new PurchaseReportByDatePOJO());
+		model.addAttribute("purchaseReportByDatePOJO",purchaseReportByDatePOJO );
 		return "searchPurchaseReportsByDate";
 	}
 	
 	@GetMapping("/getByDate")
 	public String getByDate(Model model,@RequestParam("purchaseDt") String purchasedDate ) throws ParseException {
-		
-		logger.info("----------------"+purchasedDate);
-		Date parseDate=new SimpleDateFormat("dd/MM/yyyy").parse(purchasedDate);  
-		
-		return paginateReportByDate(1,model,parseDate);
+				
+		return paginateReportByDate(1,model,purchasedDate);
 		
 	}
 	
 	@GetMapping("/dateReport/{pageNo}")
-	public String paginateReportByDate(@PathVariable(value="pageNo") int pageNo,Model model,Date purchasedDate ) 
+	public String paginateReportByDate(@PathVariable(value="pageNo") int pageNo,Model model,
+			@RequestParam("purchasedDate") String purchasedDate ) throws ParseException 
 	{		
 		int reportCount = 5;
-		Page<PurchaseReport> page = purchaseReportService.purchasedReportByDatePaginationt(purchasedDate,pageNo, reportCount);
+		Date parsePurchasedDate=new SimpleDateFormat("dd/MM/yyyy").parse(purchasedDate);  
+		purchaseReportByDatePOJO.setPurchaseDt(parsePurchasedDate);
+		Page<PurchaseReport> page = purchaseReportService.purchasedReportByDatePaginationt(parsePurchasedDate,pageNo, reportCount);
 		List<PurchaseReport> listOfPurchaseReport = page.getContent();		
 		model.addAttribute("activePage",pageNo);
 		model.addAttribute("totalPages",page.getTotalPages());
+		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("listOfPurchaseReport",listOfPurchaseReport);
+		model.addAttribute("purchaseReportByDatePOJO",purchaseReportByDatePOJO );
+		model.addAttribute("paginate","ByDate");
+		model.addAttribute("purchasedDate",purchasedDate);
 		return "viewPurchaseReport";
 	}
 

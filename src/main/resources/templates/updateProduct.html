@@ -18,90 +18,92 @@
 
 <body>
 
-<header th:insert="fragments/header" hidden=""></header>
-<header th:replace="fragments/header"></header>
+	<header th:insert="fragments/header" hidden=""></header>
+	<header th:replace="fragments/header"></header>
 
-	<form  action="#"  th:action="@{'/saveOrUpdateProduct?pageNo='+${pageNo}}" th:object="${product}"
-		method="POST">
+	<form action="#"
+		th:action="@{'/saveOrUpdateProduct?pageNo='+${pageNo}}"
+		th:object="${product}" method="POST">
 
 		<h1>Update Product Detail</h1>
 		<br>
-		<Table class="center">
-			<thead>
-				<tr>
-					<th>Details To Be Entered</th>
-					<th>Modify Required Product Details</th>
-			</thead>
-			<tbody>
-				<!-- Product Details -->
-				<tr>
-					<td><label for="id">Product Id:</label></td>
-					<td><input type="number" class="form-control" th:field="*{id}" readonly="readonly">
-						</td>
-				</tr>
+		<div th:if="${productNotFound}">
+			<h2>Product Not Found!!!!!</h2>
+		</div>
+		<div th:if="${!productNotFound}">
+			<Table class="center">
+				<thead>
+					<tr>
+						<th>Details To Be Entered</th>
+						<th>Modify Required Product Details</th>
+				</thead>
+				<tbody>
+					<!-- Product Details -->
+					<tr>
+						<td><label for="id">Product Id:</label></td>
+						<td><input type="number" class="form-control"
+							th:field="*{id}" readonly="readonly"></td>
+					</tr>
 
-				<tr>
-					<td><label for="productName">Product Name:</label></td>
-					<td>
-					<input type="text" class="form-control"
-						th:field="*{productName}" required></td>
-				</tr>
-				<tr>
-					<td><label for="productSize">Product Size:</label></td>
-					<td><input type="number" class="form-control"
-						th:field="*{productSize}" required></td>
-				</tr>
-				<tr>
-					<td><label for="productPrice">Product Price:</label></td>
-					<td><input type="number" class="form-control"
-						th:field="*{productPrice}" required>
-						
-						</td>
-				</tr>
+					<tr>
+						<td><label for="productName">Product Name:</label></td>
+						<td><input type="text" class="form-control"
+							th:field="*{productName}" required></td>
+					</tr>
+					<tr>
+						<td><label for="productSize">Product Size:</label></td>
+						<td><input type="number" class="form-control"
+							th:field="*{productSize}" required></td>
+					</tr>
+					<tr>
+						<td><label for="productPrice">Product Price:</label></td>
+						<td><input type="number" class="form-control"
+							th:field="*{productPrice}" required></td>
+					</tr>
 
 
-				<tr>
-					<td><label for="mfgDate">Product Manufactured Date:</label></td>
-					<td>
-						<div class="input-group date" id="datetimepicker1"
-							data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input"
-								data-target="#datetimepicker1" th:field="*{mfgDate}"
-								id="mfgDate" placeholder="Date" />
-							<div class="input-group-append" data-target="#datetimepicker1"
-								data-toggle="datetimepicker">
-								<div class="input-group-text">
-									<i class="fa fa-calendar-alt"></i>
+					<tr>
+						<td><label for="mfgDate">Product Manufactured Date:</label></td>
+						<td>
+							<div class="input-group date" id="datetimepicker1"
+								data-target-input="nearest">
+								<input type="text" class="form-control datetimepicker-input"
+									data-target="#datetimepicker1" th:field="*{mfgDate}"
+									id="mfgDate" placeholder="Date" />
+								<div class="input-group-append" data-target="#datetimepicker1"
+									data-toggle="datetimepicker">
+									<div class="input-group-text">
+										<i class="fa fa-calendar-alt"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
+						</td>
+					</tr>
 					<!-- Category Details -->
-				<tr>
-					<td><label for="category">Category Name:</label></td>
-					<td>
-					<input type="hidden" class="form-control"
-						th:field="*{category.categoryId}" >
-					<input type="text" class="form-control"
-						th:field="*{category.categoryName}" required></td>
-				</tr>
+					<tr>
+						<td><label for="category">Category Name:</label></td>
+						<td><input type="hidden" class="form-control"
+							th:field="*{category.categoryId}"> <input type="text"
+							class="form-control" th:field="*{category.categoryName}" required></td>
+					</tr>
 
-				<!-- Product Quantity Details -->
-				<tr>
-					<td><label for="quantity">Product Count:</label></td>
-					<td><input type="text" class="form-control"
-						th:field="*{quantity}" required></td>
-				</tr>
+					<!-- Product Quantity Details -->
+					<tr>
+						<td><label for="quantity">Product Count:</label></td>
+						<td><input type="text" class="form-control"
+							th:field="*{quantity}" required></td>
+					</tr>
 
 
 
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Update Product" class="btn btn-secondary"></td>
-				</tr>
-			</tbody>
-		</Table>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Update Product"
+							class="btn btn-secondary"></td>
+					</tr>
+				</tbody>
+			</Table>
+		</div>
 		<hr>
 
 		<a th:href="@{/home}"> Back to Home Page</a>
@@ -115,11 +117,9 @@
 		th:src="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js}"></script>
 
 	<script>
-   
-
-    $('#datetimepicker1').datetimepicker({
-        format: 'DD/MM/YYYY'
-    });
-</script>
+		$('#datetimepicker1').datetimepicker({
+			format : 'DD/MM/YYYY'
+		});
+	</script>
 </body>
 </html>

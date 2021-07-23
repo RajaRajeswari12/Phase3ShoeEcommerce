@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,7 +22,7 @@ public class Product {
 	@GeneratedValue
 	private int id;
 	
-	@ManyToOne(targetEntity= ProductCategory.class,cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity= ProductCategory.class,cascade = CascadeType.DETACH)
 	@JoinColumn(name="categoryId",referencedColumnName = "categoryId")
 	private ProductCategory category;
 	

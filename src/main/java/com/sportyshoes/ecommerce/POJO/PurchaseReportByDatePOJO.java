@@ -3,8 +3,15 @@ package com.sportyshoes.ecommerce.POJO;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
+
+@Component
 public class PurchaseReportByDatePOJO {
 	
+	 @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date purchaseDt;
 	
 	private int pageNo = 1;	

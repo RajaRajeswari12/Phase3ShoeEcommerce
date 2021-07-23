@@ -15,6 +15,7 @@ import com.sportyshoes.ecommerce.models.ProductCategory;
 import com.sportyshoes.ecommerce.repository.ProductRepository;
 import com.sportyshoes.ecommerce.service.ProductCategoryService;
 import com.sportyshoes.ecommerce.service.ProductService;
+import com.sportyshoes.ecommerce.service.PurchasedReportService;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -26,6 +27,9 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	
+	@Autowired
+	private PurchasedReportService purchasedReportService;
 
 	
 	
@@ -44,7 +48,13 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product getProductById(int productId) {
 		
-		return productRepository.getById(productId);
+		Optional<Product> optionalProd = productRepository.findById(productId);
+		Product product = null;
+		if(optionalProd.isPresent()) {
+			product = optionalProd.get();
+		}
+		
+		return product;
 	}
 
 	
@@ -59,6 +69,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void deleteById(int productId) {
+		purchasedReportService.deleteByProductId(productId);
 		productRepository.deleteById(productId);
 		
 	}

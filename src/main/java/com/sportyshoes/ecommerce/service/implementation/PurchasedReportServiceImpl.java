@@ -28,16 +28,20 @@ public class PurchasedReportServiceImpl implements PurchasedReportService{
 
 	@Override
 	public Page<PurchaseReport> purchasedReportByCategoryPagination(int categoryId,int pageNo, int reportCount) {
-		// TODO Auto-generated method stub
 		Pageable pageable = PageRequest.of(pageNo-1, reportCount);
 		return purchasedReportService.findByCategory(categoryId,pageable);
 	}
 
 	@Override
 	public Page<PurchaseReport> purchasedReportByDatePaginationt(Date purchasedDate, int pageNo, int reportCount) {
-		// TODO Auto-generated method stub
 		Pageable pageable = PageRequest.of(pageNo-1, reportCount);
 		return purchasedReportService.findByDate(purchasedDate,pageable);
+	}
+
+	@Override
+	public void deleteByProductId(int prouctId) {
+		purchasedReportService.deleteByProductId(prouctId);
+		
 	}
 
 }

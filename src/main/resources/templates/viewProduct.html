@@ -3,8 +3,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View Products</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link th:rel="stylesheet" th:href="@{/mystyle.css}" />
 </head>
+	<header th:insert="fragments/header" hidden=""></header>
 <header th:replace="fragments/header"></header>
 <body>
 	<div th:if="${session.UserName != null}">
@@ -38,10 +49,10 @@
 						<td th:text="${productDetail.quantity}"></td>
 						<td><a
 							th:href="@{'/updateProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
-							class="btn btn-primary">Update</a></td>
+							class="btn btn-info"><i class="fa fa-edit"></i> Update</a></td>
 						<td><a
 							th:href="@{'/deleteProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
-							class="btn btn-primary">Delete</a></td>
+							class="btn btn-info"><i class="fa fa-trash"></i> Delete</a></td>
 					</tr>
 
 				</tbody>
@@ -49,12 +60,12 @@
 
 			<div th:if="${totalPages > 1}">
 				<div class="row col-sm-10">
-					<div class="col-sm-1">
+					<ul class="pagination">
 						<span th:each="index : ${#numbers.sequence(1,totalPages)}">
-							<a th:if="${activePage != index}"
-							th:href="@{'/product/'+${index}}">[[${index}]]</a> <span
-							th:unless="${activePage != index}">[[${index}]]</span>
+							<li class="page-item"><a class="page-link"
+							th:href="@{'/product/'+${index}}">[[${index}]]</a></li> 
 						</span>
+						</ul>
 					</div>
 				</div>
 			</div>

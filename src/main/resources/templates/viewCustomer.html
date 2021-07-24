@@ -3,59 +3,71 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>View Customers</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link th:rel="stylesheet" th:href="@{/mystyle.css}" />
 </head>
+	<header th:insert="fragments/header" hidden=""></header>
 <header th:replace="fragments/header"></header>
 <body>
-<div th:if="${session.UserName != null}">
-	<div th:if="${totalRecords != 0}">
-		<div class="container my-2">
+	<div th:if="${session.UserName != null}">
+		<div th:if="${totalRecords != 0}">
+			<div class="container my-2">
 
-			<h1>Customers List</h1>
+				<h1>Customers List</h1>
 
-			<table border="1"
-				class="center table table-striped table-responsive-md">
-				<thead>
-					<tr>
-						<th>Customer id</th>
-						<th>CustomerName</th>
-						<th>UserName</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>PhoneNo</th>
+				<table border="1"
+					class="center table table-striped table-responsive-md">
+					<thead>
+						<tr>
+							<th>Customer id</th>
+							<th>CustomerName</th>
+							<th>UserName</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th>PhoneNo</th>
 
 
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="customerDetail : ${listOfCustomer}">
-						<td th:text="${customerDetail.id}"></td>
-						<td th:text="${customerDetail.customerName}"></td>
-						<td th:text="${customerDetail.userName}"></td>
-						<td th:text="${customerDetail.email}"></td>
-						<td th:text="${customerDetail.Address}"></td>
-						<td th:text="${customerDetail.phoneNo}"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="customerDetail : ${listOfCustomer}">
+							<td th:text="${customerDetail.id}"></td>
+							<td th:text="${customerDetail.customerName}"></td>
+							<td th:text="${customerDetail.userName}"></td>
+							<td th:text="${customerDetail.email}"></td>
+							<td th:text="${customerDetail.Address}"></td>
+							<td th:text="${customerDetail.phoneNo}"></td>
 
-					</tr>
+						</tr>
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
 
-			<div th:if="${totalPages > 1}">
-				<div class="row col-sm-10">
-					<div class="col-sm-1">
-						<span th:each="index : ${#numbers.sequence(1,totalPages)}">
-							<a th:if="${activePage != index}" th:href="@{'/user/'+${index}}">[[${index}]]</a>
-							<span th:unless="${activePage != index}">[[${index}]]</span>
-						</span>
+				<div th:if="${totalPages > 1}">
+					<div class="row col-sm-10">
+					
+							<ul class="pagination">
+								<span th:each="index : ${#numbers.sequence(1,totalPages)}">
+									<li class="page-item"><a class="page-link" 
+									th:href="@{'/user/'+${index}}">[[${index}]]</a></li>
+								
+								</span>
+							</ul>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div th:if="${totalRecords == 0}">
-	<h2>No Records FOUND !!!!!!!!</h2>
-	</div>
+		<div th:if="${totalRecords == 0}">
+			<h2>No Records FOUND !!!!!!!!</h2>
+		</div>
 	</div>
 </body>
 </html>

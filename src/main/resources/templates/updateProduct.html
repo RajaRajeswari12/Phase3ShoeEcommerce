@@ -52,12 +52,12 @@
 					</tr>
 					<tr>
 						<td><label for="productSize">Product Size:</label></td>
-						<td><input type="number" class="form-control"
+						<td><input type="number" class="form-control" min=1 max=1000
 							th:field="*{productSize}" required></td>
 					</tr>
 					<tr>
 						<td><label for="productPrice">Product Price:</label></td>
-						<td><input type="number" class="form-control"
+						<td><input type="number" class="form-control" min=1 max=10000000
 							th:field="*{productPrice}" required></td>
 					</tr>
 
@@ -90,7 +90,7 @@
 					<!-- Product Quantity Details -->
 					<tr>
 						<td><label for="quantity">Product Count:</label></td>
-						<td><input type="text" class="form-control"
+						<td><input type="number" class="form-control" min=1 max=1000000
 							th:field="*{quantity}" required></td>
 					</tr>
 

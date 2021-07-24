@@ -33,7 +33,6 @@ public class AdminUserController {
 
 	@RequestMapping(value = "/adminLogin",method=RequestMethod.GET)
 	public String adminUserLoginPage(Model model) {
-
 		model.addAttribute("adminUser",new AdminUser());
 		return "adminLogin";
 
@@ -46,10 +45,8 @@ public class AdminUserController {
 		if(bindingResult.hasErrors()) {
 			return "adminLogin";
 		}else {
-			logger.info("$$$$$$$$$$$$$$$$$ "+ adminUser.getAdminUserName() +"   @@@@ "+adminUser.toString());
 			session.setAttribute("UserName", adminUser.getAdminUserName());
 		}
-
 		return "homePage";
 	}
 
@@ -74,8 +71,6 @@ public class AdminUserController {
 
 	@GetMapping(value="/home")
 	public String gotoHomePage() {
-
-
 		return "homePage";
 	}
 
@@ -84,8 +79,6 @@ public class AdminUserController {
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("UserName");
 		session.invalidate();
-
-
 		return "homePage";
 	}
 

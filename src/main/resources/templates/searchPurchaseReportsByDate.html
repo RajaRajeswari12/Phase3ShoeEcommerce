@@ -23,8 +23,7 @@
 	<div th:if="${session.UserName != null}">
 		<nav class="navbar navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand">Select the category name from the
-					drop-down</a>
+				<a class="navbar-brand">Select the Purchased Date to view the Report</a>
 				<form class="d-flex" th:action="@{/getByDate}"
 					th:object="${purchaseReportByDatePOJO}" method="GET">
 

@@ -7,6 +7,7 @@
 </head>
 <header th:replace="fragments/header"></header>
 <body>
+<div th:if="${session.UserName != null}">
 	<div th:if="${totalRecords != 0}">
 		<div class="container my-2">
 
@@ -54,6 +55,7 @@
 	</div>
 	<div th:if="${totalRecords == 0}">
 	<h2>No Records FOUND !!!!!!!!</h2>
+	</div>
 	</div>
 </body>
 </html>

@@ -1,5 +1,10 @@
 package com.sportyshoes.ecommerce.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +28,8 @@ public class AdminUserController {
 	@Autowired
 	private AdminUserValidator adminUserValidator;
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
 	@RequestMapping(value = "/adminLogin",method=RequestMethod.GET)
 	public String adminUserLoginPage(Model model) {
@@ -33,11 +40,14 @@ public class AdminUserController {
 	}
 
 	@PostMapping(value="/adminLogin")
-	public String loginAdminUser(@ModelAttribute("adminUser") AdminUser adminUser,BindingResult bindingResult) {
-
+	public String loginAdminUser(@ModelAttribute("adminUser") AdminUser adminUser,BindingResult bindingResult,HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		adminUserService.authenticateAdminUser(adminUser, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "adminLogin";
+		}else {
+			logger.info("$$$$$$$$$$$$$$$$$ "+ adminUser.getAdminUserName() +"   @@@@ "+adminUser.toString());
+			session.setAttribute("UserName", adminUser.getAdminUserName());
 		}
 
 		return "homePage";
@@ -64,7 +74,17 @@ public class AdminUserController {
 
 	@GetMapping(value="/home")
 	public String gotoHomePage() {
-		
+
+
+		return "homePage";
+	}
+
+	@GetMapping(value="/logoutAdmin")
+	public String logOutSession(Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		session.removeAttribute("UserName");
+		session.invalidate();
+
 
 		return "homePage";
 	}

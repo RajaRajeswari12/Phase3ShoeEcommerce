@@ -7,56 +7,59 @@
 </head>
 <header th:replace="fragments/header"></header>
 <body>
-	<div class="container my-2">
+	<div th:if="${session.UserName != null}">
+		<div class="container my-2">
 
-		<h1>Products List</h1>
+			<h1>Products List</h1>
 
-		<table border="1" class="table table-striped table-responsive-md">
-			<thead>
-				<tr>
-					<th>Product Id</th>
-					<th>Product Name</th>
-					<th>Product Size</th>
-					<th>Product Price</th>
-					<th>Product Manufactured Date</th>
-					<th>Product Category</th>
-					<th>Product Count</th>
-					<th>Update Product</th>
-					<th>Delete Product</th>
+			<table border="1" class="table table-striped table-responsive-md">
+				<thead>
+					<tr>
+						<th>Product Id</th>
+						<th>Product Name</th>
+						<th>Product Size</th>
+						<th>Product Price</th>
+						<th>Product Manufactured Date</th>
+						<th>Product Category</th>
+						<th>Product Count</th>
+						<th>Update Product</th>
+						<th>Delete Product</th>
 
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="productDetail : ${listOfProducts}">
-					<td th:text="${productDetail.id}"></td>
-					<td th:text="${productDetail.productName}"></td>
-					<td th:text="${productDetail.productSize}"></td>
-					<td th:text="${productDetail.productPrice}"></td>
-					<td th:text="${productDetail.mfgDate}"></td>
-					<td th:text="${productDetail.category.categoryName}"></td>
-					<td th:text="${productDetail.quantity}"></td>
-					<td><a
-						th:href="@{'/updateProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
-						class="btn btn-primary">Update</a></td>
-					<td><a
-						th:href="@{'/deleteProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
-						class="btn btn-primary">Delete</a></td>
-				</tr>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="productDetail : ${listOfProducts}">
+						<td th:text="${productDetail.id}"></td>
+						<td th:text="${productDetail.productName}"></td>
+						<td th:text="${productDetail.productSize}"></td>
+						<td th:text="${productDetail.productPrice}"></td>
+						<td th:text="${productDetail.mfgDate}"></td>
+						<td th:text="${productDetail.category.categoryName}"></td>
+						<td th:text="${productDetail.quantity}"></td>
+						<td><a
+							th:href="@{'/updateProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
+							class="btn btn-primary">Update</a></td>
+						<td><a
+							th:href="@{'/deleteProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
+							class="btn btn-primary">Delete</a></td>
+					</tr>
 
-			</tbody>
-		</table>
+				</tbody>
+			</table>
 
-		<div th:if="${totalPages > 1}">
-			<div class="row col-sm-10">
-				<div class="col-sm-1">
-					<span th:each="index : ${#numbers.sequence(1,totalPages)}">
-						<a th:if="${activePage != index}" th:href="@{'/product/'+${index}}">[[${index}]]</a>
-						<span th:unless="${activePage != index}">[[${index}]]</span>
-					</span>
+			<div th:if="${totalPages > 1}">
+				<div class="row col-sm-10">
+					<div class="col-sm-1">
+						<span th:each="index : ${#numbers.sequence(1,totalPages)}">
+							<a th:if="${activePage != index}"
+							th:href="@{'/product/'+${index}}">[[${index}]]</a> <span
+							th:unless="${activePage != index}">[[${index}]]</span>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
 	</div>
 </body>
 </html>

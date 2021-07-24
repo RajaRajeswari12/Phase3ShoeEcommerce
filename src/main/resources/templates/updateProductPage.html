@@ -9,6 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/header"></header>
+<div th:if="${session.UserName != null}">
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand">Enter ProductId of the Product to be updated</a>
@@ -19,6 +20,6 @@
     </form>
   </div>
 </nav>
-
+</div>
 </body>
 </html>

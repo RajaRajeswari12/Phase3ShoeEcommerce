@@ -9,19 +9,17 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="/adminLogin">Login</a>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" th:if="${session.UserName == null}">
+ <a class="navbar-brand" href="/adminLogin">Login</a>
   <a class="navbar-brand" href="/registerAdmin">Register</a>
 
-  <!-- Links -->
-  <ul class="navbar-nav">
-  <!--   <li class="nav-item">
-      <a class="nav-link" href="/saveProduct">Add New Products</a>
-    </li> -->
-  
 
-    <!-- Dropdown -->
+</nav>
+
+ <nav class="navbar navbar-expand-sm bg-dark navbar-dark" th:if="${session.UserName != null}">
+
+ <ul class="navbar-nav">
+  
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Manage Product
@@ -53,6 +51,9 @@
       </div>
     </li>
   </ul>
+
+   <a class="navbar-brand" href="/logoutAdmin">LogOut</a>
+  
 </nav>
 <br>
   

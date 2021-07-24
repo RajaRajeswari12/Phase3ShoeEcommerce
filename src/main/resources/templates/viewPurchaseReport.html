@@ -27,6 +27,8 @@
 			<header th:replace="searchPurchaseReportsByDate"></header>
 		</div>
 	</div>
+<div th:if="${session.UserName != null}">	
+	
 	<div class="container my-2">
 
 
@@ -107,7 +109,7 @@
 		<h2>No Records FOUND !!!!!!!!</h2>
 	</div>
 	</div>
-
+</div>
 	
 </body>
 </html>

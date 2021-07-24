@@ -8,7 +8,7 @@
 <link
 	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}"
 	rel="stylesheet">
-	<link th:rel="stylesheet"
+<link th:rel="stylesheet"
 	th:href="@{/assets/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css}" />
 <link th:rel="stylesheet"
 	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
@@ -17,36 +17,41 @@
 <link th:rel="stylesheet" th:href="@{/mystyle.css}">
 </head>
 <body>
-<header th:insert="fragments/header" hidden=""></header>
+	<header th:insert="fragments/header" hidden=""></header>
 	<header th:replace="fragments/header"></header>
-	
 
-	<nav class="navbar navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand">Select the category name from the drop-down</a>
-			<form class="d-flex" th:action="@{/getByDate}"
-				th:object="${purchaseReportByDatePOJO}" method="GET">
-				
-					<div class="input-group date navbar-brand nav-info" id="datetimepicker1"
-							data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input"
-								data-target="#datetimepicker1" th:field="*{purchaseDt}"
-								id="mfgDate" placeholder="Date" />
-							<div class="input-group-append" data-target="#datetimepicker1"
-								data-toggle="datetimepicker">
-								<div class="input-group-text ">
-									<i class="fa fa-calendar-alt"></i>
-								</div>
+	<div th:if="${session.UserName != null}">
+		<nav class="navbar navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand">Select the category name from the
+					drop-down</a>
+				<form class="d-flex" th:action="@{/getByDate}"
+					th:object="${purchaseReportByDatePOJO}" method="GET">
+
+					<div class="input-group date navbar-brand nav-info"
+						id="datetimepicker1" data-target-input="nearest">
+						<input type="text" class="form-control datetimepicker-input"
+							data-target="#datetimepicker1" th:field="*{purchaseDt}"
+							id="mfgDate" placeholder="Date" />
+						<div class="input-group-append" data-target="#datetimepicker1"
+							data-toggle="datetimepicker">
+							<div class="input-group-text ">
+								<i class="fa fa-calendar-alt"></i>
 							</div>
 						</div>
-						<div > </div>
-						<input type="hidden" th:field="*{pageNo}">
+					</div>
+					<div></div>
+					<input type="hidden" th:field="*{pageNo}">
 					<button class="btn btn-outline-success btn-lg " type="submit">Search</button>
-				
-			</form>
-		</div>
-	</nav>
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+				</form>
+			</div>
+		</nav>
+
+	</div>
+
+
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	<script th:src="@{/assets/moment/moment.min.js}"></script>

@@ -9,13 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sportyshoes.ecommerce.POJO.GetProductIdPOJO;
 import com.sportyshoes.ecommerce.models.Product;
@@ -23,7 +27,7 @@ import com.sportyshoes.ecommerce.service.ProductService;
 
 
 
-@Controller
+@RestController
 public class ProductController {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -39,44 +43,54 @@ public class ProductController {
 
 
 	@GetMapping("/viewAllProducts")
-	public String viewAllProductsPage(Model model) {
+	public ModelAndView viewAllProductsPage(Model model) {
 		return paginatedProduct(1,model);
 	}
 
 	@GetMapping("/product/{pageNo}")
-	public String paginatedProduct(@PathVariable(value="pageNo") int pageNo,Model model) 
+	public ModelAndView paginatedProduct(@PathVariable(value="pageNo") int pageNo,Model model) 
 	{		
 		int productCount = 8;
+		ModelAndView paginateProduct = new ModelAndView();
 		Page<Product> page = productService.productPaginate(pageNo, productCount);
 		List<Product> listOfProducts = page.getContent();		
 		model.addAttribute("activePage",pageNo);
 		model.addAttribute("totalPages",page.getTotalPages());
 		model.addAttribute("totalRecords",page.getTotalElements());
 		model.addAttribute("listOfProducts",listOfProducts);
-		return "viewProduct";
+		paginateProduct.setViewName("viewProduct");
+		paginateProduct.addObject(model);
+		return paginateProduct;
 	}
 
 
-	@RequestMapping(value = "/saveProduct",method=RequestMethod.GET)
-	public String addNewProductPage(Model model) 
+	@PostMapping(value = "/saveProduct")
+	public ModelAndView addNewProductPage(Model model) 
 	{
+		ModelAndView newProduct = new ModelAndView();
 		model.addAttribute("product",new Product());
 		model.addAttribute("pageNo",1);
-		return "addProduct";
+		newProduct.addObject(model);
+		newProduct.setViewName("addProduct");
+		return newProduct;
 	}
 
 	@PostMapping(value = "/saveOrUpdateProduct")
-	public String saveProductDetails(@ModelAttribute("product") Product product,@RequestParam("pageNo") String pageNo) 
+	public ModelAndView saveProductDetails(@ModelAttribute("product") Product product,@RequestParam("pageNo") String pageNo) 
 	{
+		ModelAndView saveProduct = new ModelAndView();
 		productService.addNewProduct(product);
-		return "redirect:/product/"+pageNo;
+//		newProduct.addObject(model);
+		saveProduct.setViewName("redirect:/product/"+pageNo);
+		return saveProduct;
 	}
 
 
-	@GetMapping(value="/updateProductDetail")
-	public String gotoUpdateProductDetailPage(@RequestParam("id") int id,
+	@PutMapping(value="/updateProductDetail")
+	public ModelAndView gotoUpdateProductDetailPage(@RequestParam("id") int id,
 			@RequestParam("pageNo") String pageNo,Model model) 
 	{
+		ModelAndView updateProduct = new ModelAndView();
 		product = productService.getProductById(id);	
 		boolean productNotFound = false;
 		if(product == null) {
@@ -85,18 +99,22 @@ public class ProductController {
 		model.addAttribute("productNotFound",productNotFound);
 		model.addAttribute("product",product);
 		model.addAttribute("pageNo",pageNo);
-		return "updateProduct";
+		updateProduct.addObject(model);
+		updateProduct.setViewName("updateProduct");
+		return updateProduct;
 	}
 
-	@GetMapping(value="/deleteProductDetail")
-	public String gotoDeleteProductDetailPage(@RequestParam("id") int id,
+	@DeleteMapping(value="/deleteProductDetail")
+	public ModelAndView gotoDeleteProductDetailPage(@RequestParam("id") int id,
 			@RequestParam("pageNo") String pageNo,Model model) 
 	{
+		ModelAndView deleteProduct = new ModelAndView();
 		product = productService.getProductById(id);	
 		logger.info("$$$$$$$$$$$$ Product"+product + " "+ id);
 		if(product != null) {
-			productService.deleteById(id);		
-			return "redirect:/product/"+pageNo;
+			productService.deleteById(id);
+			deleteProduct.setViewName("redirect:/product/"+pageNo);
+			return deleteProduct;
 			
 		}else {
 			model.addAttribute("id",id);
@@ -104,9 +122,10 @@ public class ProductController {
 		}
 	}
 
-	@GetMapping("/deleteProduct")
-	public String gotoDeleteProductPage(Model model,boolean productNotFound) 
+	@DeleteMapping("/deleteProduct")
+	public ModelAndView gotoDeleteProductPage(Model model,boolean productNotFound) 
 	{
+		ModelAndView deleteProduct = new ModelAndView();
 		if(productNotFound) {
 			
 			Integer id = (Integer) model.getAttribute("id");
@@ -115,15 +134,19 @@ public class ProductController {
 		}
 		model.addAttribute("productNotFound",productNotFound);
 		model.addAttribute("productIdPOJO",getProductIdPOJO);
-		return "deleteProduct";
+		deleteProduct.addObject(model);
+		deleteProduct.setViewName("deleteProduct");
+		return deleteProduct;
 	}
 
 
-	@GetMapping("/updateProduct")
-	public String gotoUpdateProductPage(Model model) 
+	@PutMapping("/updateProduct")
+	public ModelAndView gotoUpdateProductPage(Model model) 
 	{
-
+		ModelAndView updateProductPage = new ModelAndView();
 		model.addAttribute("productIdPOJO",getProductIdPOJO);
-		return "updateProductPage";
+		updateProductPage.addObject(model);
+		updateProductPage.setViewName("updateProductPage");
+		return updateProductPage;
 	}
 }

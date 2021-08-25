@@ -1,7 +1,5 @@
 package com.sportyshoes.ecommerce.models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import java.util.Date;
 
@@ -11,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 

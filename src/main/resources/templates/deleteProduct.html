@@ -17,7 +17,7 @@
 			<div class="container-fluid">
 				<a class="navbar-brand">Delete Product By Id</a>
 				<form class="d-flex" th:action="@{/deleteProductDetail}"
-					th:object="${productIdPOJO}" method="GET">
+					th:object="${productIdPOJO}" th:method="get">
 					<input class="form-control me-2" type="search" placeholder="Search"
 						aria-label="Search" th:field="*{id}"> <input type="hidden"
 						th:field="*{pageNo}">

@@ -53,7 +53,7 @@
 								class="btn btn-info"><i class="fa fa-edit"></i> Update</a></td>
 							<td><a
 								th:href="@{'/deleteProductDetail/?id={id}&pageNo='+${activePage}(id=${productDetail.id})}"
-								class="btn btn-info"><i class="fa fa-trash"></i> Delete</a></td>
+								class="btn btn-info" ><i class="fa fa-trash"></i> Delete</a></td>
 						</tr>
 
 					</tbody>
@@ -64,7 +64,7 @@
 						<ul class="pagination">
 							<span th:each="index : ${#numbers.sequence(1,totalPages)}">
 								<li class="page-item"><a class="page-link"
-									th:href="@{'/product/'+${index}}">[[${index}]]</a></li>
+									th:href="@{'/product/'+${index}}" >[[${index}]]</a></li>
 							</span>
 						</ul>
 					</div>
